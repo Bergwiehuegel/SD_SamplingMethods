@@ -6,10 +6,12 @@
 
 My code is based on 
 * [pytorch_diffusion](https://github.com/pesser/pytorch_diffusion)
+* [diffusion models pytorch](https://github.com/dome272/Diffusion-Models-pytorch/)
 * [ddim](https://github.com/ermongroup/ddim)
+* [diffusion DDIM pytorch](https://github.com/Alokia/diffusion-DDIM-pytorch)
 * [UniPC](https://github.com/wl-zhao/UniPC)
 
-Furthermore these papers have been used as a basis:
+Furthermore these papers have been used as a basis for the algorithms:
 ```
 @article{ho2020denoising,
   title={Denoising diffusion probabilistic models},

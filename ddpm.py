@@ -8,7 +8,7 @@ from model.config import Config
 # TODO think about unet model to use
 from model.unet import Model
 
-class Diffusion:
+class DDPM:
     def __init__(self, noise_steps=1000, beta_start=1e-4, beta_end=0.02, img_size=32, device="cuda", n=10, run_id="test_run_ddpm"):
         self.noise_steps = noise_steps
         self.n = n
@@ -20,8 +20,9 @@ class Diffusion:
 
         self.beta = self.prepare_noise_schedule().to(device)
         self.alpha = 1. - self.beta
-        self.alpha_hat = torch.cumprod(self.alpha, dim=0)
+        self.alpha_hat = torch.cumprod(self.alpha, dim=0) #TODO check buffer for better performance
 
+    # linear noise schedule for now TODO different ones? cosine and stuff
     def prepare_noise_schedule(self):
         return torch.linspace(self.beta_start, self.beta_end, self.noise_steps)
 
@@ -29,9 +30,10 @@ class Diffusion:
         num_batches = n // batch_size
         save_dir = os.path.join(save_dir, self.run_id)
         os.makedirs(save_dir, exist_ok=True)
+        model.eval() # TODO check my unet model for eval mode (used for only sampling and not training)
 
         start_time = time.time()
-        # Algorithm 2: Sampling from the Diffusion Model adapted from https://arxiv.org/abs/2006.11239
+        # Algorithm 2: Sampling from the Diffusion Model adapted from https://arxiv.org/abs/2006.11239 / https://github.com/dome272/Diffusion-Models-pytorch / https://github.com/pesser/pytorch_diffusion
         with torch.no_grad():
             # generating in batches to not run out of memory
             for batch_idx in range(num_batches):
@@ -49,7 +51,7 @@ class Diffusion:
                         noise = torch.randn_like(x)
                     else:
                         noise = torch.zeros_like(x)
-                    # 4:    xt−1 = 1 / √αt * (xt − (1−αt) / √(1− ¯αt) * ϵθ(xt, t)) + σt * z
+                    # 4:    x_{t-1} = 1 / sqrt(α_t) * (x_t - (1 - α_t) / sqrt(1 - ᾱ_t) * ε_θ(x_t, t)) + sqrt(β_t) * z
                     x = 1 / torch.sqrt(alpha) * (x - ((1 - alpha) / (torch.sqrt(1 - alpha_hat))) * predicted_noise) + torch.sqrt(beta) * noise
                     # 5: end for
 
@@ -69,13 +71,12 @@ class Diffusion:
 
         return save_dir, elapsed_time
 
-
 if __name__ == '__main__':
     device = "cuda"
     config = Config()
     model = Model(config).to(device)
     ckpt = torch.load(download_cifar10_checkpoint(), map_location=device)
     model.load_state_dict(ckpt)
-    diffusion = Diffusion(img_size=32, device=device)
+    diffusion = DDPM(img_size=32, device=device)
 
     output_dir, time_taken = diffusion.sample(model, n=10, save_dir="./generated_images")

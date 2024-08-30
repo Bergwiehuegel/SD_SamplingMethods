@@ -1,3 +1,14 @@
+# images
+generated_images/
+cifar10_set/
+cifar10_real_images/
+
+# test files
+ckpt_test.py
+
+# metrics
+sampling_metrics.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

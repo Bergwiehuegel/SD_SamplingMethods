@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 # TODO not hardcode local path
 # downloads the converted cifar10 checkpoint (pytorch ready) and returns path
-# based on https://github.com/ermongroup/ddim
+# based on https://github.com/ermongroup/ddim - URL maintained by authors
 def download_cifar10_checkpoint():
     url = "https://heibox.uni-heidelberg.de/f/869980b53bf5416c8a28/?dl=1"
     local_path = os.path.expanduser("~/.cache/diffusion_models_converted/diffusion_cifar10_model/model-790000.ckpt")
