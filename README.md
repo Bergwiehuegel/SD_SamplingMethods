@@ -1,4 +1,4 @@
-# SD_SamplingMethods
+# Stable Diffusin Sampling Method Comparison
 
 
 
