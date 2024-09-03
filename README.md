@@ -1,4 +1,4 @@
-# Stable Diffusin Sampling Method Comparison
+# Stable Diffusion Sampling Method Comparison
 
 
 
