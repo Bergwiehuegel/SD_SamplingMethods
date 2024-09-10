@@ -2,6 +2,7 @@
 generated_images/
 cifar10_set/
 cifar10_real_images/
+cifar10_real_images_old/
 
 # test files
 ckpt_test.py

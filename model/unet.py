@@ -1,4 +1,4 @@
-# for now adapted from https://github.com/ermongroup/ddim/blob/main/models/diffusion.py
+# for now adapted from https://github.com/ermongroup/ddim/blob/main/models/diffusion.py (MIT License Copyright (c) 2020 Jiaming Song)
 
 import math
 import torch

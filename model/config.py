@@ -1,4 +1,4 @@
-#adapted from https://github.com/ermongroup/ddim
+# adapted from https://github.com/ermongroup/ddim (MIT License Copyright (c) 2020 Jiaming Song)
 class Config:
     class ModelConfig:
         def __init__(self):

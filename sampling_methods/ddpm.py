@@ -5,7 +5,6 @@ from functions.ckpt_utils import download_cifar10_checkpoint
 from functions.img_utils import save_image
 
 from model.config import Config
-# TODO think about unet model to use
 from model.unet import Model
 
 class DDPM:
@@ -20,9 +19,9 @@ class DDPM:
 
         self.beta = self.prepare_noise_schedule().to(device)
         self.alpha = 1. - self.beta
-        self.alpha_hat = torch.cumprod(self.alpha, dim=0) #TODO check buffer for better performance
+        self.alpha_hat = torch.cumprod(self.alpha, dim=0)
 
-    # linear noise schedule for now TODO different ones? cosine and stuff
+    # linear noise schedule
     def prepare_noise_schedule(self):
         return torch.linspace(self.beta_start, self.beta_end, self.noise_steps)
 
@@ -51,7 +50,7 @@ class DDPM:
                         noise = torch.randn_like(x)
                     else:
                         noise = torch.zeros_like(x)
-                    # 4:    x_{t-1} = 1 / sqrt(α_t) * (x_t - (1 - α_t) / sqrt(1 - ᾱ_t) * ε_θ(x_t, t)) + sqrt(β_t) * z
+                    # 4: reconstruct previous noisy state
                     x = 1 / torch.sqrt(alpha) * (x - ((1 - alpha) / (torch.sqrt(1 - alpha_hat))) * predicted_noise) + torch.sqrt(beta) * noise
                     # 5: end for
 
@@ -59,7 +58,7 @@ class DDPM:
                 x = (x.clamp(-1, 1) + 1) / 2
                 x = (x * 255).type(torch.uint8)
 
-                # x is the tensor containing the batch of images
+                # save images / x is the tensor containing the batch of images
                 for img_idx, img in enumerate(x):
                     global_img_idx = batch_idx * batch_size + img_idx
                     save_path = os.path.join(save_dir, f"{self.run_id}_image_{global_img_idx}.png")
@@ -78,5 +77,4 @@ if __name__ == '__main__':
     ckpt = torch.load(download_cifar10_checkpoint(), map_location=device)
     model.load_state_dict(ckpt)
     diffusion = DDPM(img_size=32, device=device)
-
     output_dir, time_taken = diffusion.sample(model, n=10, save_dir="./generated_images")

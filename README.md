@@ -10,6 +10,9 @@ My code is based on
 * [ddim](https://github.com/ermongroup/ddim)
 * [diffusion DDIM pytorch](https://github.com/Alokia/diffusion-DDIM-pytorch)
 * [UniPC](https://github.com/wl-zhao/UniPC)
+And uses huggingface implementations (Apache License Version 2.0) for:
+* [DPM-Solver](https://huggingface.co/docs/diffusers/en/api/schedulers/multistep_dpm_solver)
+* [UniPC](https://huggingface.co/docs/diffusers/en/api/schedulers/unipc)
 
 Furthermore these papers have been used as a basis for the algorithms:
 ```
@@ -37,5 +40,15 @@ Furthermore these papers have been used as a basis for the algorithms:
   journal={Advances in Neural Information Processing Systems},
   volume={36},
   year={2024}
+}
+```
+```
+@article{lu2022dpm,
+  title={Dpm-solver: A fast ode solver for diffusion probabilistic model sampling in around 10 steps},
+  author={Lu, Cheng and Zhou, Yuhao and Bao, Fan and Chen, Jianfei and Li, Chongxuan and Zhu, Jun},
+  journal={Advances in Neural Information Processing Systems},
+  volume={35},
+  pages={5775--5787},
+  year={2022}
 }
 ```

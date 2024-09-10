@@ -3,7 +3,6 @@ import hashlib
 import requests
 from tqdm import tqdm
 
-# TODO not hardcode local path
 # downloads the converted cifar10 checkpoint (pytorch ready) and returns path
 # based on https://github.com/ermongroup/ddim - URL maintained by authors
 def download_cifar10_checkpoint():
