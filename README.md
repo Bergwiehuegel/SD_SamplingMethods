@@ -1,6 +1,21 @@
 # Stable Diffusion Sampling Method Comparison
+This repository contains the code for my bachelor thesis "A Comparative Analysis of Stable Diffusion Sampling Methods".
 
+Sampling methods that are compared:
+* DDPM
+* DDIM
+* UniPC
+* DPM-Solver
 
+Evaluation metrics are:
+* Fréchet Inception Distance for image quality
+* Wall-clock time for efficiency
+
+Installation Prerequisites:
+* Python 3.10
+* PyTorch
+* Hugging Face Diffusers (for UniPC and DPM-Solver)
+* NumPy
 
 # Acknowledgement
 
