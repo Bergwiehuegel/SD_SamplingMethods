@@ -29,7 +29,7 @@ class DDPM:
         num_batches = n // batch_size
         save_dir = os.path.join(save_dir, self.run_id)
         os.makedirs(save_dir, exist_ok=True)
-        model.eval() # TODO check my unet model for eval mode (used for only sampling and not training)
+        model.eval()
 
         start_time = time.time()
         # Algorithm 2: Sampling from the Diffusion Model adapted from https://arxiv.org/abs/2006.11239 / https://github.com/dome272/Diffusion-Models-pytorch / https://github.com/pesser/pytorch_diffusion

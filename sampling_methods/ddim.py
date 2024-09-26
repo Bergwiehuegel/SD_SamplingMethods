@@ -9,7 +9,7 @@ from model.unet import Model
 
 import numpy as np
 
-# BIG TODO maybe fix naming of variables to match paper, (like alpha_t instead of alpha - adapted from ddpm for now for my own better understanding)
+# adapted from ddpm - variable names differ from the ddim paper
 class DDIM:
     def __init__(self, noise_steps=50, beta_start=1e-4, beta_end=0.02, img_size=32, device="cuda", n=10, run_id="test_run_ddim", training_steps=1000):
         self.noise_steps = noise_steps
@@ -33,7 +33,7 @@ class DDIM:
         num_batches = n // batch_size
         save_dir = os.path.join(save_dir, self.run_id)
         os.makedirs(save_dir, exist_ok=True)
-        model.eval() # TODO check my unet model for eval mode (used for only sampling and not training)
+        model.eval()
 
         a = self.training_steps // self.noise_steps
         time_steps = np.asarray(list(range(0, self.training_steps, a)))
